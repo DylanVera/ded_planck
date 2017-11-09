@@ -43,7 +43,8 @@ enum planck_layers {
   _PLOVER,
   _ADJUST,
   _NAV,
-  _DOTA
+  _DOTA,
+  DOTA_FN
 };
 
 enum planck_keycodes {
@@ -56,11 +57,12 @@ enum planck_keycodes {
   BACKLIT,
   EXT_PLV,
   DOTA,
-  EXT_DOTA
+  EXIT_DOTA,
+  NAV,
+  EXIT_NAV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   /* Qwerty
    * ,-----------------------------------------------------------------------------------.
    * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
@@ -72,14 +74,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
    * `-----------------------------------------------------------------------------------'
    */
-  
+
   [_QWERTY] = {
     {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
     {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {TT(_NAV),   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
+    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT , LOWER,   KC_BSPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
-  
+
   /* Colemak
    * ,-----------------------------------------------------------------------------------.
    * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -94,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = {
     {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
     {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {TT(_NAV),   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   KC_BSPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
   
   /* Dvorak
@@ -112,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = {
     {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
     {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
-    {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-    {TT(_NAV),   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
+    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   KC_BSPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
   },
   
   /* Lower
@@ -173,66 +175,84 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------------------------------------------------.
-   * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+   * |      | Reset|      |      |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+   * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|  Nav |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof| BRITE|      |      | DOTA |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |             |      |      |      |      |      |
+   * |      |      |      |      |      |  Del |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] = {
-    {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL },
-    {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK, PLOVER, _______},
+    {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL},
+    {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK, PLOVER, NAV},
     {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  BACKLIT, _______, _______, DOTA,    _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, KC_DEL, _______, _______, _______, _______, _______, _______}
   },
-  /* Nav (window management/mouse/media controls) layer
+
+    /* Nav (window management/mouse/media controls) layer
      *
-     *        Mouse keys -----/```````````````````\               /```````````````````\----- Window manager
-     *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-     *                │     │Ms B2│Ms Up│Ms B1│Ms WD│     │     │Prev │ NW  │  N  │ NE  │     │
-     *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-     *                │     │Ms L │Ms Dn│Ms R │Ms WU│     │     │Full │  W  │     |  E  │Exit │
-     *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-     *                │     │Ms WL│Ms B3│Ms WR│     │     │     │Next │ SW  │  S  │ SE  │     │
-     *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     *                │     │Prev │Play │Next │ScrLk│Sleep| Wake│Pause│Mute │Vol- │Vol+ │     │
-     *                └─────┴─────┴─────┴─────┴─────┴───── ─────┴─────┴─────┴─────┴─────┴─────┘
-     *                        \___ Media ___/   \___ Screen/sleep __/   \___ Volume __/
+     *  Mouse keys -----/```````````````````\               /```````````````````\----- Window manager
+     *          ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+     *          │     │Ms B2│Ms Up│Ms B1│Ms WD│     │     │Prev │ NW  │  N  │ NE  │     │
+     *          ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+     *          │     │Ms L │Ms Dn│Ms R │Ms WU│     │     │Full │  W  │     |  E  │ Exit│
+     *          ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+     *          │     │Ms WL│Ms B3│Ms WR│     │     │     │Next │ SW  │  S  │ SE  │     │
+     *          ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
+     *          │     │     |     │Prev |Pause| Play|Pause| Next|Mute │Vol- │Vol+ │     │
+     *          └─────┴─────┴─────┴─────┴─────┴───── ─────┴─────┴─────┴─────┴─────┴─────┘
+     *                              \_____ Media _____/   		  \___ Volume __/
      */
   [_NAV] = {
       {_______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, ___x___, ___x___, WM_PREV, WM_NW,   WM_N,    WM_NE,   _______},
-      {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, ___x___, ___x___, WM_FULL, WM_W,    _______, WM_E,    TG(_NAV)},
+      {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, ___x___, ___x___, WM_FULL, WM_W,    _______, WM_E,    EXIT_NAV},
       {_______, KC_WH_L, KC_BTN3, KC_WH_R, ___x___, ___x___, ___x___, WM_NEXT, WM_SW,   WM_S,    WM_SE,   _______},
-      {_______, KC_MPRV, KC_MPLY, KC_MNXT, KC_SLCK, KC_SLEP, KC_WAKE, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU, _______}
+      {_______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MPLY, KC_MNXT, KC_MUTE,KC_VOLD, KC_VOLU, _______}
   },
   
   /* Dota
    * ,-----------------------------------------------------------------------------------.
-   * |  Esc |  1   |  2   |  3   |  4   |  5   |  6   |  F1  |  F2  |  F3  |  F4  | Base |
+   * |  Esc |  1   |  2   |  3   |  4   |  5   |  6   |      |      |      |      | Exit |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |  Tab |  Q   |  W   |  E   |  R   |  T   |  Y   |  F5  |  F6  |  F7  |  F8  |  F9  |
+   * |  Tab |  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |      |      |  F9  |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * | LSft |  A   |  S   |  D   |  F   |  G   |  H   | Vol- | Vol+ | LAlt |  Up  | Enter|
+   * | LSft |  A   |  S   |  D   |  F   |  G   |  H   |	 J   | Vol- | Vol+ |  Up  | Enter|
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | LCtl |  Z   |  X   |  C   |  V   |  B   |  Spc |  N   |  M   | Left | Down | Right|
+   * | LCtl |  Z   |  X   |  C   |  V   |  B   | LAlt |  Fn  |  N   | Left | Down | Right|
    * `-----------------------------------------------------------------------------------'
    */										
   [_DOTA] = {
-  	{KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     KC_F1,    KC_F2,    KC_F3,    KC_F4,    EXT_DOTA},
-    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9},
-    {KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,     KC_VOLD,  KC_VOLU,  KC_LALT,  KC_UP,    KC_ENT},
-    {KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_SPC,   KC_N,     KC_M,     KC_LEFT,  KC_DOWN,  KC_RIGHT}
-  } 
+  	{KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     _______,      _______,  _______,  _______,  EXIT_DOTA},
+    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,     KC_U,         KC_I,     _______,  _______,  KC_F9},
+    {KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,     KC_J,         KC_VOLD,  KC_VOLU,  KC_UP,    KC_ENT},
+    {KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LALT,  MO(DOTA_FN),  KC_N,     KC_LEFT,  KC_DOWN,  KC_RIGHT}
+  },
+
+  /* Dota Fn Row
+   * ,-----------------------------------------------------------------------------------.
+   * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |      |      |      |      |      |
+   * |------+------+------+------+------+-------------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |	     |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * `-----------------------------------------------------------------------------------'
+   *   
+   */	    
+  [DOTA_FN] = {
+  	{_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  }
 };
 
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-  float dota_mode[][2] = SONG(ZELDA_PUZZLE);
-  float exit_dota[][2] = SONG(XFILES);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -317,10 +337,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case DOTA:
       if (record->event.pressed) {
-      	#ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(dota_mode);
-        #endif
         layer_off(_RAISE);
         layer_off(_LOWER);
         layer_off(_ADJUST);
@@ -328,12 +344,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case EXT_DOTA:
+    case EXIT_DOTA:
       if (record->event.pressed) {
-      	#ifdef AUDIO_ENABLE
-          PLAY_SONG(exit_dota);
-        #endif
         layer_off(_DOTA);
+      }
+      return false;
+      break;
+      case NAV:
+      if(record->event.pressed){
+      	layer_off(_RAISE);
+        layer_off(_LOWER);
+        layer_off(_ADJUST);
+        layer_on(_NAV);
+      }
+      return false; 
+      break;
+      case EXIT_NAV:
+      if (record->event.pressed) {
+        layer_off(_NAV);
       }
       return false;
       break;
