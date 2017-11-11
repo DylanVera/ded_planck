@@ -44,7 +44,8 @@ enum planck_layers {
   _ADJUST,
   _NAV,
   _DOTA,
-  DOTA_FN
+  DOTA_FN,
+  _MOVE
 };
 
 enum planck_keycodes {
@@ -79,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
     {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
     {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
-    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT , LOWER,   KC_BSPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT , LOWER,   MO(_MOVE),  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
 
   /* Colemak
@@ -97,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
     {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
     {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   KC_BSPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   MO(_MOVE),  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
   
   /* Dvorak
@@ -115,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
     {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
     {KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   KC_BSPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
+    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   MO(_MOVE),  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
   },
   
   /* Lower
@@ -159,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
    * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
-   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * |------+ccc		ccc------+------+------+------+------|------+------+------+------+------+------|
    * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
@@ -188,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL},
     {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK, PLOVER, NAV},
     {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  BACKLIT, _______, _______, DOTA,    _______},
-    {_______, _______, _______, _______, _______, KC_DEL, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
     /* Nav (window management/mouse/media controls) layer
@@ -246,6 +247,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	{_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, _______, _______},
   	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  },
+
+  /* Dota Fn Row
+   * ,-----------------------------------------------------------------------------------.
+   * |      |      |      |      |      |      |      |      | Home | End  |      |      |
+   * |------+------+------+------+------+-------------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      | Left | Down |  Up  | Right|      |
+   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |	     | PgDn | PgUp |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * `-----------------------------------------------------------------------------------'
+   *   
+   */	    
+  [_MOVE] = {
+  	{_______, _______, _______, _______, _______, _______, _______, KC_HOME,  KC_END, _______, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_DOWN, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, _______},
   	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   }
 };
