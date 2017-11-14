@@ -32,6 +32,7 @@
 #define WM_SW   LGUI(KC_LEFT | KC_DOWN)
 #define WM_W    LGUI(KC_LEFT)
 
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -60,7 +61,9 @@ enum planck_keycodes {
   DOTA,
   EXIT_DOTA,
   NAV,
-  EXIT_NAV
+  EXIT_NAV,
+  CTL_LCBR,
+  CTL_RCBR
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -70,17 +73,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+-------------+------+------+------+------+------|
    * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |  M   |   ,  |   .  |   /  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
    * `-----------------------------------------------------------------------------------'
    */
 
   [_QWERTY] = {
-    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-    {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
-    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT , LOWER,   MO(_MOVE),  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_TAB,   KC_Q,     KC_W,    KC_E,           KC_R,  KC_T,      KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_ESC,   KC_A,     KC_S,    KC_D,           KC_F,  KC_G,      KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+    {KC_LSPO,  KC_Z,     KC_X,    KC_C,           KC_V,  KC_B,      KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
+    {CTL_LCBR, TT(_NAV), KC_LGUI, ALT_T(KC_LBRC), LOWER, MO(_MOVE), KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
 
   /* Colemak
@@ -92,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
-   * `-----------------------------------------------------------------------------------'
+   * `-----------------------------------------------------------------------------------'  
    */
   [_COLEMAK] = {
-    {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-    {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-    {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   MO(_MOVE),  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_TAB,   KC_Q,     KC_W,    KC_F,           KC_P,  KC_G,      KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
+    {KC_ESC,   KC_A,     KC_R,    KC_S,           KC_T,  KC_D,      KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_QUOT},
+    {KC_LSPO,  KC_Z,     KC_X,    KC_C,           KC_V,  KC_B,      KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+    {CTL_LCBR, TT(_NAV), KC_LGUI, ALT_T(KC_LBRC), LOWER, MO(_MOVE), KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
   
   /* Dvorak
@@ -113,10 +116,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_DVORAK] = {
-    {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
-    {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
-    {KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-    {KC_LCTL, TT(_NAV), KC_LGUI, KC_LALT, LOWER,   MO(_MOVE),  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
+    {KC_TAB,   KC_QUOT,  KC_COMM, KC_DOT,         KC_P,  KC_Y,      KC_F,    KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},
+    {KC_ESC,   KC_A,     KC_O,    KC_E,           KC_U,  KC_I,      KC_D,    KC_H,  KC_T,    KC_N,    KC_S,  KC_SLSH},
+    {KC_LSPO,  KC_SCLN,  KC_Q,    KC_J,           KC_K,  KC_X,      KC_B,    KC_M,  KC_W,    KC_V,    KC_Z,  KC_ENT },
+    {CTL_LCBR, TT(_NAV), KC_LGUI, ALT_T(KC_LBRC), LOWER, MO(_MOVE), KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
   },
   
   /* Lower
@@ -160,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
    * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
-   * |------+ccc		ccc------+------+------+------+------|------+------+------+------+------+------|
+   * |-------------+------+------+------+------|------+------+------+------+------+------|
    * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
@@ -187,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] = {
     {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL},
-    {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK, PLOVER, NAV},
+    {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK, PLOVER,  NAV},
     {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  BACKLIT, _______, _______, DOTA,    _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
@@ -252,19 +255,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Movement
    * ,-----------------------------------------------------------------------------------.
-   * |      |      |      |      |      |      |      |      | Home | End  |      |      |
+   * |      |      |      |      |      |      |      | Home | End  |      |      |		   |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      | Left | Down |  Up  | Right|      |
+   * |      |      |      |      |      |      | Left | Down |  Up  | Right|      |		   |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |	     | PgDn | PgUp |      |      |
+   * |      |      |      |      |      |      |	    | PgDn | PgUp |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
-   *   
    */	    
   [_MOVE] = {
-  	{_______, _______, _______, _______, _______, _______, _______, KC_HOME,  KC_END, _______, _______, _______},
-  	{_______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_DOWN, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______},
+  	{_______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
   	{_______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, _______},
   	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   }
@@ -273,6 +275,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+#endif
+
+static bool cadet_interrupted = false;
+static uint16_t space_cadet_timer = 0;
+
+#ifndef CTL_LCBR_KEY
+  #define CTL_LCBR_KEY KC_LBRC
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -360,7 +369,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         layer_off(_LOWER);
         layer_off(_ADJUST);
-        layer_on(_DOTA);
+        layer_on(_DOTA);     
       }
       return false;
       break;
@@ -370,7 +379,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-      case NAV:
+    case NAV:
       if(record->event.pressed){
       	layer_off(_RAISE);
         layer_off(_LOWER);
@@ -379,13 +388,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false; 
       break;
-      case EXIT_NAV:
+    case EXIT_NAV:
       if (record->event.pressed) {
         layer_off(_NAV);
       }
       return false;
       break;
-
+    case CTL_LCBR:{
+    	if(record->event.pressed){
+    		space_cadet_timer = timer_read();
+    		register_mods(MOD_BIT(KC_LCTL));
+    	}
+    	else{
+    		unregister_mods(MOD_BIT(KC_LCTL));
+    		if(timer_elapsed(space_cadet_timer) < TAPPING_TERM){
+    			register_mods(MOD_BIT(KC_LSFT));
+    			register_code(CTL_LCBR_KEY);
+    			unregister_code(CTL_LCBR_KEY);
+    			unregister_mods(MOD_BIT(KC_LSFT));
+    		}		
+    	}
+    	return false;
+    	break;
+    }
   }
   return true;
 }
