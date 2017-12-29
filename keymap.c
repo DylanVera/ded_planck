@@ -82,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = {
     {KC_TAB,   KC_Q,     KC_W,    KC_E,           KC_R,  KC_T,      KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
     {KC_ESC,   KC_A,     KC_S,    KC_D,           KC_F,  KC_G,      KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-    {KC_LSPO,  KC_Z,     KC_X,    KC_C,           KC_V,  KC_B,      KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
-    {CTL_LCBR, TT(_NAV), KC_LGUI, ALT_T(KC_LBRC), LOWER, MO(_MOVE), KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LSFT,  KC_Z,     KC_X,    KC_C,           KC_V,  KC_B,      KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
+    {KC_LCTL,  TT(_NAV), KC_LGUI, KC_LALT, LOWER, MO(_MOVE), KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
 
   /* Colemak
@@ -100,8 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = {
     {KC_TAB,   KC_Q,     KC_W,    KC_F,           KC_P,  KC_G,      KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
     {KC_ESC,   KC_A,     KC_R,    KC_S,           KC_T,  KC_D,      KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_QUOT},
-    {KC_LSPO,  KC_Z,     KC_X,    KC_C,           KC_V,  KC_B,      KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {CTL_LCBR, TT(_NAV), KC_LGUI, ALT_T(KC_LBRC), LOWER, MO(_MOVE), KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_LSFT,  KC_Z,     KC_X,    KC_C,           KC_V,  KC_B,      KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+    {KC_LCTL,  TT(_NAV), KC_LGUI, KC_LALT, LOWER, MO(_MOVE), KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
   
   /* Dvorak
@@ -118,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = {
     {KC_TAB,   KC_QUOT,  KC_COMM, KC_DOT,         KC_P,  KC_Y,      KC_F,    KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},
     {KC_ESC,   KC_A,     KC_O,    KC_E,           KC_U,  KC_I,      KC_D,    KC_H,  KC_T,    KC_N,    KC_S,  KC_SLSH},
-    {KC_LSPO,  KC_SCLN,  KC_Q,    KC_J,           KC_K,  KC_X,      KC_B,    KC_M,  KC_W,    KC_V,    KC_Z,  KC_ENT },
-    {CTL_LCBR, TT(_NAV), KC_LGUI, ALT_T(KC_LBRC), LOWER, MO(_MOVE), KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
+    {KC_LSFT,  KC_SCLN,  KC_Q,    KC_J,           KC_K,  KC_X,      KC_B,    KC_M,  KC_W,    KC_V,    KC_Z,  KC_ENT },
+    {KC_LCTL,  TT(_NAV), KC_LGUI, KC_LALT, LOWER, MO(_MOVE), KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
   },
   
   /* Lower
@@ -205,9 +205,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
      *          │     │Ms WL│Ms B3│Ms WR│     │     │     │Next │ SW  │  S  │ SE  │     │
      *          ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     *          │     │     |     │Prev |Pause| Play|Pause| Next|Mute │Vol- │Vol+ │     │
-     *          └─────┴─────┴─────┴─────┴─────┴───── ─────┴─────┴─────┴─────┴─────┴─────┘
-     *                              \_____ Media _____/   		  \___ Volume __/
+     *          │     │     |     │     | Prev| Play|Pause|Next |Mute │Vol- │Vol+ │     │
+     *          └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
+     *                                    \_____ Media _____/   	\___ Volume __/
      */
   [_NAV] = {
       {_______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, ___x___, ___x___, WM_PREV, WM_NW,   WM_N,    WM_NE,   _______},
@@ -224,15 +224,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * | LSft |  A   |  S   |  D   |  F   |  G   |  H   |	 J   |  K   |  L   |  Up  | Enter|
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | LCtl |  Z   |  X   |  C   |  V   |  B   | LAlt |  N   |  M   | Left | Down | Right|
+   * | LCtl |  ALT  |  X   |  C   |  V   |  B   | Spce |  N   |  M   | Left | Down | Right|
    * `-----------------------------------------------------------------------------------'
    */										
   [_DOTA] = {
-  	{KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     MO(DOTA_FN),  KC_MUTE,  KC_VOLD,  KC_VOLU,  EXIT_DOTA},
-    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,     KC_U,         KC_I,     KC_O,     KC_P,     KC_F9},
-    {KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,     KC_J,         KC_K,     KC_L,     KC_UP,    KC_ENT},
-    {KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ALT_T(KC_SPC),  KC_N,   KC_M,     KC_LEFT,  KC_DOWN,  KC_RIGHT}
+  	{KC_ESC,	KC_1,   KC_2,	 KC_3, KC_4,  KC_5,  KC_6,   MO(DOTA_FN),  KC_MUTE,  KC_VOLD,  KC_VOLU,  EXIT_DOTA},
+    {KC_TAB,  KC_Q,   KC_W,  KC_E, KC_R,  KC_T,  KC_Y,   KC_U,         KC_I,     KC_O,     KC_P,     KC_F9},
+    {KC_LSFT, KC_A,   KC_S,  KC_D, KC_F,  KC_G,  KC_H,   KC_J,         KC_K,     KC_L,     KC_UP,    KC_ENT},
+    {KC_LCTL, KC_LALT, KC_X,  KC_C, KC_V, KC_B,  KC_SPC, KC_N,         KC_M,     KC_LEFT,  KC_DOWN,  KC_RIGHT}
   },
+  
 
   /* Dota Fn Row
    * ,-----------------------------------------------------------------------------------.
@@ -255,20 +256,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Movement
    * ,-----------------------------------------------------------------------------------.
-   * |      |      |      |      |      |      |      | Home | End  |      |      |		   |
+   * |      |   7   |   8   |     9 |      |      |      | Home | End  |      |    | Del |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |      |      |      |      |      |      | Left | Down |  Up  | Right|      |		   |
+   * |      |  4    |   5  |   6  |      |      | Left | Down |  Up  | Right|      |		 |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * |      |      |      |      |      |      |	    | PgDn | PgUp |      |      |      |
+   * |      |   1  |   2  |   3  |      |      |	    | PgDn | PgUp |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |      |   0  |   .  |   ,  |      |      |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
    */	    
   [_MOVE] = {
-  	{_______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______},
-  	{_______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
-  	{_______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, _______},
-  	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  	{_______, KC_7,    KC_8,    KC_9,    _______, _______, _______, KC_HOME, KC_END,  _______, _______, KC_DEL},
+  	{_______, KC_4,    KC_5,    KC_6,    _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
+  	{_______, KC_1,    KC_2,    KC_3,    _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, _______},
+  	{_______, KC_0,    KC_DOT,  KC_COMMA, _______, _______, _______, _______, _______, _______, _______, _______}
   }
 };
 
@@ -277,7 +278,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-static bool cadet_interrupted = false;
 static uint16_t space_cadet_timer = 0;
 
 #ifndef CTL_LCBR_KEY
@@ -401,11 +401,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     	}
     	else{
     		unregister_mods(MOD_BIT(KC_LCTL));
-    		if(timer_elapsed(space_cadet_timer) < TAPPING_TERM){
-    			register_mods(MOD_BIT(KC_LSFT));
+    		if(timer_elapsed(space_cadet_timer) < TAPPING_TERM + 25){
+    			add_weak_mods(MOD_LSFT);
     			register_code(CTL_LCBR_KEY);
     			unregister_code(CTL_LCBR_KEY);
-    			unregister_mods(MOD_BIT(KC_LSFT));
+    			del_weak_mods(MOD_LSFT);
     		}		
     	}
     	return false;

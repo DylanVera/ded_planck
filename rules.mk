@@ -3,4 +3,4 @@ ifndef QUANTUM_DIR
 endif
 
 MOUSEKEY_ENABLE = yes
-NKRO_ENABLE = yes
+BACKLIGHT_ENABLE = yes
